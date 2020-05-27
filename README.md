@@ -16,7 +16,7 @@ sudo yum install java-1.8.0-openjdk
 ./bin/plugin install elasticsearch/elasticsearch-cloud-aws/2.7.1
 ./bin/plugin install lmenezes/elasticsearch-kopf/1.5.7
 cd /etc/elasticsearch
-echo "
+echo '
 cluster.name: elkstack
 cloud.aws.access_key: ACCESS_KEY_HERE
 cloud.aws.secret_key: SECRET_KEY_HERE
@@ -25,7 +25,7 @@ discovery.type: ec2
 discovery.ec2.tag.Name: "Elasticsearch"
 http.cors.enabled: true
 http.cors.allow-origin: "*"
-" >> elasticsearch.yml
+' > elasticsearch.yml
 systemctl enable elasticsearch
 systemctl start elasticsearch
 ```
@@ -33,21 +33,15 @@ systemctl start elasticsearch
 Logstash 1.5.4-1
 ==============
 
-Commands
---------
+```console
 sudo su
-
 yum update -y
-
 cd /root
-
 wget https://download.elastic.co/logstash/logstash/packages/centos/logstash-1.5.4-1.noarch.rpm
-
 yum install logstash-1.5.4-1.noarch.rpm -y
-
 rm -f logstash-1.5.4-1.noarch.rpm
-
 nano /etc/logstash/conf.d/logstash.conf
+```
 
 Config
 ------
