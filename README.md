@@ -26,6 +26,7 @@ discovery.ec2.tag.Name: "Elasticsearch"
 http.cors.enabled: true
 http.cors.allow-origin: "*"
 ' > elasticsearch.yml
+
 systemctl enable elasticsearch
 systemctl start elasticsearch
 ```
@@ -40,17 +41,23 @@ cd /root
 wget https://download.elastic.co/logstash/logstash/packages/centos/logstash-1.5.4-1.noarch.rpm
 yum install logstash-1.5.4-1.noarch.rpm -y
 rm -f logstash-1.5.4-1.noarch.rpm
-nano /etc/logstash/conf.d/logstash.conf
+echo '
+input { 
+  file {
+    path => "/tmp/logstash.txt" 
+  } 
+} 
+output {
+  elasticsearch {
+    host => "ELASTICSEARCH_URL_HERE"
+    protocol => "http" 
+  }            
+}
+' > /etc/logstash/conf.d/logstash.conf
+
+systemctl enable logstash
+systemctl start logstash
 ```
-
-Config
-------
-input { file { path => "/tmp/logstash.txt" } } output { elasticsearch { host => "ELASTICSEARCH_URL_HERE" protocol => "http" } }
-
-Commands
---------
-service logstash start
-
 
 Kibana 4.1.2
 ============
