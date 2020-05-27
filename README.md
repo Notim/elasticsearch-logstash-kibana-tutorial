@@ -2,7 +2,7 @@ Amazon Linux AMI 2015.09
 
 Elasticsearch 1.7.2
 ===================
-"""console
+```console
 sudo su
 yum update -y
 cd /root
@@ -28,7 +28,7 @@ http.cors.allow-origin: "*"
 " >> elasticsearch.yml
 systemctl enable elasticsearch
 systemctl start elasticsearch
-"""
+```
 
 Logstash 1.5.4-1
 ==============
