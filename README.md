@@ -23,8 +23,8 @@ node.master: true
 node.data: true
 
 discovery.seed_providers: ec2
-discovery.ec2.access_key: AKIA5ZQX3DCMR4IV5PXO
-discovery.ec2.secret_key: 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
+discovery.ec2.access_key: IAM_ACCESS_KEY
+discovery.ec2.secret_key: IAM_SECRET_KEY
 discovery.ec2.availability_zones: ["us-east-1"]
 discovery.ec2.tag.Name: "veget-elasticsearch"
 
