@@ -42,16 +42,25 @@ wget https://download.elastic.co/logstash/logstash/packages/centos/logstash-1.5.
 yum install logstash-1.5.4-1.noarch.rpm -y
 rm -f logstash-1.5.4-1.noarch.rpm
 echo '
-input { 
+input {
+  stdin{ }
   file {
-    path => "/tmp/logstash.txt" 
-  } 
-} 
+    path => "/tmp/logstash.log"
+  }
+  http {
+    host => "0.0.0.0"
+    port => "8080"
+  }
+}
+
 output {
   elasticsearch {
-    host => "ELASTICSEARCH_URL_HERE"
-    protocol => "http" 
-  }            
+    host => "ELASTICSEARCH_URL:PORT"
+    protocol => "http"
+  }
+  stdout {
+    codec => rubydebug
+  }
 }
 ' > /etc/logstash/conf.d/logstash.conf
 
