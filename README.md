@@ -40,7 +40,7 @@ systemctl start elasticsearch
 Logstash 1.5.4-1
 ==============
 
-```console
+```bash
 sudo su
 
 yum update -y
@@ -78,35 +78,25 @@ systemctl enable logstash
 systemctl start logstash
 ```
 
-Kibana 4.1.2
+Kibana 7.7.0
 ============
-
-Commands
---------
+```bash
 sudo su
 
 yum update -y
+yum install java-1.8.0-openjdk
 
 cd /root
+wget https://artifacts.elastic.co/downloads/kibana/kibana-7.7.0-x86_64.rpm
+rpm --install kibana-7.7.0-x86_64.rpm
 
-wget https://download.elastic.co/kibana/kibana/kibana-4.1.2-linux-x64.tar.gz
+echo '
+server.port: 5601
+server.host: 0.0.0.0
+elasticsearch.hosts: ["http://elasticsearch.veget.com.br:80"]
+' > config/kibana.yml 
 
-tar xzf kibana-4.1.2-linux-x64.tar.gz
-
-rm -f kibana-4.1.2-linux-x64.tar.gz
-
-cd kibana-4.1.2-linux-x64
-
-nano config/kibana.yml 
-
-Config
-------
-elasticsearch_url: "ELASTICSEARCH_URL_HERE"
-
-Commands
---------
 nohup ./bin/kibana &
+```
 
-Navigate In Browser
--------------------
 http://KIBANA_URL:5601/
