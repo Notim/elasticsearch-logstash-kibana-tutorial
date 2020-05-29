@@ -1,6 +1,6 @@
 Amazon Linux AMI 2015.09
 
-Elasticsearch 1.7.2
+Elasticsearch 7.7
 ===================
 ```bash
 sudo su
@@ -9,28 +9,28 @@ yum update -y
 yum install java-1.8.0-openjdk
 
 cd /root
-wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.noarch.rpm
-yum install elasticsearch-1.7.2.noarch.rpm -y
+https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.0-x86_64.rpm
+yum install elasticsearch-7.7.0-x86_64.rpm -y
 rm -f elasticsearch-1.7.2.noarch.rpm
-
-cd /usr/share/elasticsearch/
-
-./bin/plugin install mobz/elasticsearch-head
-./bin/plugin install lukas-vlcek/bigdesk
-./bin/plugin install elasticsearch/elasticsearch-cloud-aws/2.7.1
-./bin/plugin install lmenezes/elasticsearch-kopf/1.5.7
 
 cd /etc/elasticsearch
 
 echo '
-cluster.name: elkstack
-cloud.aws.access_key: IAM_ACCESS_KEY_HERE
-cloud.aws.secret_key: IAM_SECRET_KEY_HERE
-cloud.aws.region: us-east-1
-discovery.type: ec2
-discovery.ec2.tag.Name: EC2_TAG_NAME
+cluster.name: "veget-elkstack"
+
+node.name: "Phanton Assassin"
+node.master: true
+node.data: true
+
+discovery.seed_providers: ec2
+discovery.ec2.access_key: AKIA5ZQX3DCMR4IV5PXO
+discovery.ec2.secret_key: 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
+discovery.ec2.availability_zones: ["us-east-1"]
+discovery.ec2.tag.Name: "veget-elasticsearch"
+
 http.cors.enabled: true
 http.cors.allow-origin: "*"
+
 ' > elasticsearch.yml
 
 systemctl enable elasticsearch
